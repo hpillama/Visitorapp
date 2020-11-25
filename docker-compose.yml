@@ -1,0 +1,18 @@
+version : '3'
+services:
+   my-redis-server:
+       image : redis
+       expose:
+            - '6379'
+       volumes :
+            - ./redis-data:/data
+   visitor-app:
+        build: 
+           dockerfile: dockerfile
+           context: ./
+        ports:
+            - '5552:9999'
+        depends_on:
+            - my-redis-server
+        volumes:
+            - ./src:/usr/Visitorwellcome/src
